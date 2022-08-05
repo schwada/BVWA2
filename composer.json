@@ -1,0 +1,22 @@
+{
+    "name": "david/makr",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "David Schwam"
+        }
+    ],
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.5",
+        "symfony/var-dumper": "^6.1",
+        "illuminate/container": "^9.22",
+        "illuminate/database": "^9.22",
+        "firebase/php-jwt": "^6.3",
+        "ramsey/uuid": "^4.3"
+    }
+}

@@ -1,6 +1,7 @@
 # Authentication Service
 
 ### Todo
+- [ ] OPENID
 - [ ] Middleware, and find appropriate folder
 - [ ] Verify when getting identity
 - [ ] Forgot password
@@ -15,9 +16,11 @@
 - [ ] Two factor authentication
 - [ ] Check if is a previous password was used
 - [ ] Low level optimization
-- [] recover email dont tell user that he doesnt exist
-- [] Ip Validation -> notify - forbidden, only allowed
-- [] check user roles if internal -- authorization middleware
+- [ ] recover email dont tell user that he doesnt exist
+- [ ] Ip Validation -> notify - forbidden, only allowed
+- [ ] check user roles if internal -- authorization middleware
+- [ ] Recaptcha
+- [ ] BlackList token
 
 
 ### In Progress

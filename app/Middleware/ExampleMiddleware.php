@@ -10,7 +10,7 @@ class ExampleMiddleware {
     }
 
     public function __invoke(Request $request, RequestHandler $handler): Response {
-        var_dump("middleware handled");
+        // var_dump("middleware handled");
         return $handler->handle($request);
     }
 }

@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Exception;
 use Firebase\JWT\{JWT, Key};
 use Illuminate\Container\Container;
-use Illuminate\Support\ItemNotFoundException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Psr\Http\Message\RequestInterface as Request;
 
 class AuthenticationService implements AuthenticationInterface {
@@ -24,7 +24,7 @@ class AuthenticationService implements AuthenticationInterface {
             
         try {
             $user = User::where('email', $email)->firstOrFail();
-        } catch (ItemNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             throw new SystemException(self::ERROR_INVALID_DETAILS);
         }
 
@@ -56,7 +56,7 @@ class AuthenticationService implements AuthenticationInterface {
  
         try {
             $this->authenticated = User::where('uuid', $claims->sub)->firstOrFail();
-        } catch (ItemNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             throw new SystemException(self::ERROR_MALFORMED_TOKEN);
         }
     }

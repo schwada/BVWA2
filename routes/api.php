@@ -8,6 +8,7 @@ $app->get('/', [App\Controllers\HomeController::class, 'index']);
 $app->group('/auth', function (Group $group) {
     $group->post('/login', [App\Controllers\AuthenticationController::class, 'login']);
     $group->post('/logout', [App\Controllers\AuthenticationController::class, 'logout']);
+    $group->post('/recover', [App\Controllers\AuthenticationController::class, 'recover']);
     $group->get('/me', [App\Controllers\AuthenticationController::class, 'get'])->add(AuthenticationMiddleware::class);
 })->add(new App\Middleware\ExampleMiddleware());
 
@@ -18,3 +19,5 @@ $app->group('/users', function (Group $group) {
 
 // ->add(new AuthMiddleware($container->get(AuthenticationInterface::class));
 
+
+$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', App\Controllers\TestController::class);

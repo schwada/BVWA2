@@ -26,5 +26,19 @@ $container->bind("settings", function ($c) {
 
 require_once __DIR__ . '/database.php';
 
-$app->addBodyParsingMiddleware();
+// $app->add(function ($request, $handler) {
+//     $response = $handler->handle($request);
+//     return $response->withHeader('Access-Control-Allow-Headers', '*')
+//     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+//     ->withHeader('Access-Control-Allow-Credentials', 'true')
+//     ->withHeader('Access-Control-Allow-Origin', '*');
+// });
+
+// $app->addBodyParsingMiddleware();
+
+// $app->options('/{routes:.+}', function ($request, $response, $args) {
+//     return $response;
+// });
+
+
 require_once __DIR__ . '/../routes/api.php';

@@ -1,3 +1,25 @@
+### Invalid login, nonexistent email
+POST http://localhost:8000/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "superduperwrong@nonexistent.com",
+    "password": "wrong"
+}
+
+
+### Invalid login, invalid details
+POST http://localhost:8000/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "dszone51@gmail.com",
+    "password": "wrong"
+}
+
+
+### Successful login
+
 POST http://localhost:8000/auth/login HTTP/1.1
 content-type: application/json
 
@@ -6,7 +28,7 @@ content-type: application/json
     "password": "dszone"
 }
 
-###
+### Get info about self
 
 GET http://localhost:8000/auth/me HTTP/1.1
 content-type: application/json

@@ -1,0 +1,3 @@
+- limit only 5 toasts
+- clean code
+- add smoother animation

@@ -1,7 +1,12 @@
 # Authentication Service
 
 ### Todo
+- [ ] PASSOWORD RESET -> RECOVER, FE
 - [ ] OPENID
+- [ ] Sentinel, or other open source auth provider
+- [ ] Password History Validation
+- [ ] last_login
+- [ ] activation
 - [ ] Middleware, and find appropriate folder
 - [ ] Verify when getting identity
 - [ ] Forgot password

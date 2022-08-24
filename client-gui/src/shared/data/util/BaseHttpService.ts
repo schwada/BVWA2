@@ -10,8 +10,9 @@ export class HttpService {
         headers: this.headers
     };
 
-    public fetch(input: RequestInfo, init?: RequestInit): Promise<any> {
-        return fetch(this.baseUrl + input, {...this.defaults, ...init}).then(resp => resp.json());
+    public async fetch(input: RequestInfo, init?: RequestInit): Promise<any> {
+        const response = await fetch(this.baseUrl + input, {...this.defaults, ...init});
+        return response.json();
     }
 
     public addDefault(defaults: RequestInit) {

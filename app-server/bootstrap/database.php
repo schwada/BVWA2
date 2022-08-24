@@ -6,10 +6,11 @@ $capsule->addConnection([
     'driver' => 'pgsql',
     'host' => '127.0.0.1',
     'database' => 'makr',
-    'username' => 'postgres', //'maker',
-    'password' => 'postgres', //'password',
+    'username' => 'postgres',
+    'password' => 'postgres',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix' => ''
 ]);
+$capsule->setAsGlobal();
 $capsule->bootEloquent();

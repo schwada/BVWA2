@@ -18,6 +18,7 @@
         "illuminate/database": "^9.22",
         "firebase/php-jwt": "^6.3",
         "ramsey/uuid": "^4.3",
-        "vlucas/valitron": "^1.4"
+        "vlucas/valitron": "^1.4",
+        "robmorgan/phinx": "^0.12.12"
     }
 }

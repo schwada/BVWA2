@@ -17,8 +17,7 @@ class User extends Model {
 
     protected $hidden = [ 
         'id',
-        'password',
-        'remember_token'
+        'password'
     ];
     
     // protected $guarded = [];

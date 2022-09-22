@@ -2,7 +2,9 @@ export default function Home() {
     
     return (
         <>
-            <h2 className="text-2xl font-bold text-gray-600">Dashboard</h2>
+            <div className="flex w-full justify-between items-center mb-5">
+                <div className="text-2xl font-semibold">Dashboard</div>
+            </div>
         </>
     );
 }

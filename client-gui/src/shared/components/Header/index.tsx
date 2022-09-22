@@ -1,18 +1,22 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { signOut, useAuth } from "../../store/auth";
-import Select from "../Select";
 import toast from "react-hot-toast/headless";
+import { useRef, useState } from "react";
+import { useCart } from "../../store/cart";
 
 const navLinkStyle = ({isActive}: any) => "px-3 py-2 mx-1 rounded-md duration-150 " + (isActive ? "bg-slate-300" : "hover:bg-slate-400");
 
 export default function Header() {
+
 	const { t, i18n } = useTranslation();
+	const refChangeLanguage = useRef<HTMLDetailsElement>(null);
 	const user = useAuth(state => state.user);
+	const cart = useCart(state => state.items);
 	const navigate = useNavigate();
 
-	const changeLanguageHandler = (event: any) => {
-		const lang = event.target.value;
+	const changeLanguage = (lang: any) => {
+		refChangeLanguage?.current?.removeAttribute("open");
 		window.localStorage.setItem('locale', lang);
 		i18n.changeLanguage(lang);
 	};
@@ -31,14 +35,21 @@ export default function Header() {
 				<div className="flex">
 					<nav className="flex pr-2">
 						<NavLink to="/" className={navLinkStyle}>{t('menu.home')}</NavLink>
-						<NavLink to="/about" className={navLinkStyle}>{t('menu.about')}</NavLink>
-						<NavLink to="/dashboard" className={navLinkStyle}>{t('menu.dashboard')}</NavLink>
+						{ user && <NavLink to="/dashboard" className={navLinkStyle}>{t('menu.dashboard')}</NavLink>}
 					</nav>
 	
 					{ user ? (
-						<div onClick={logout} className="flex ml-5 mx-1 px-2 py-2 cursor-pointer rounded-md duration-150 hover:bg-slate-400">
+						<>
+						<NavLink to="/store/cart" className="flex ml-5 mx-1 px-2 py-2 cursor-pointer rounded-md duration-150 hover:bg-slate-400">
+							Cart
+							<span className="ml-1 bg-slate-300 rounded-md text-white px-1">
+								{cart.length}
+							</span>
+						</NavLink>
+						<div onClick={logout} className="flex mx-1 px-2 py-2 cursor-pointer rounded-md duration-150 hover:bg-slate-400">
 							{t('menu.logout')}
 						</div>
+						</>
 					) : (
 						<NavLink to="/auth/login" className="flex ml-5 mx-1 px-2 py-2 cursor-pointer rounded-md duration-150 hover:bg-slate-400">
 							{t('menu.login')}
@@ -52,15 +63,22 @@ export default function Header() {
 					{/* </svg> */}
 					
 					<div className="flex">
-						<Select className="px-2 py-2 cursor-pointer rounded-md duration-150 hover:bg-slate-400"
-						value={i18n.resolvedLanguage} onChange={(e: any) => changeLanguageHandler(e)}>
-							{i18n.languages.map((m) => (
-								<option key={m} value={m}>
-									{m}
-								</option>
-							))}
-						</Select>
+						<details ref={refChangeLanguage}>
+							<summary className="px-2 py-2 list cursor-pointer rounded-md duration-150 hover:bg-slate-400">
+								{i18n.resolvedLanguage}
+							</summary>
+							<div className="absolute bg-gray-50 border rounded-md mt-2 flex flex-col">
+								{i18n.languages.map((m) => (
+									<button type="button" key={m} onClick={() => changeLanguage(m)} 
+									className="px-4 py-2 hover:bg-gray-200 duration-150 cursor-pointer border-b last:border-b-0">
+										{m}
+									</button>
+								))}
+							</div>
+						</details>
 					</div>
+
+					
 				</div>
 			</div>
 		</header>

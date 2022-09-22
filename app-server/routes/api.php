@@ -17,7 +17,9 @@ $app->group('/users', function (Group $group) {
     $group->post('', [App\Controllers\UserController::class, 'register']);
 });
 
+$app->group('/products', function (Group $group) {
+    $group->get('', [App\Controllers\ProductController::class, 'index']);
+});
+
 // ->add(new AuthMiddleware($container->get(AuthenticationInterface::class));
-
-
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', App\Controllers\TestController::class);

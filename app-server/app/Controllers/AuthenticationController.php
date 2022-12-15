@@ -13,6 +13,7 @@ use Valitron\Validator;
 class AuthenticationController {
 
     const ERROR_INVALID_EMAIL = "RECOVER_INVALID_EMAIL";
+    
     private AuthenticationInterface $auth;
 
 

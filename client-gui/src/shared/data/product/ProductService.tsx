@@ -16,5 +16,9 @@ export default new class ProductService {
 		return await this.http.fetch(`/products/${id}`);
 	}
 
+	public async userIndex(): Promise<any | null> {
+		return await this.http.fetch("/products/user");
+	}
+
 }
 	

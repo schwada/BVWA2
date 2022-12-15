@@ -16,6 +16,17 @@ export default new class ProductService {
 		return await this.http.fetch(`/products/${id}`);
 	}
 
+	public async create(data: any): Promise<any| null> { 
+		return await this.http.fetch('/products', { 
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers: {
+				'Content-Type': 'application/json',
+				...BaseHttpService.defaults.headers
+			}
+		});
+	}
+
 	public async userIndex(): Promise<any | null> {
 		return await this.http.fetch("/products/user");
 	}

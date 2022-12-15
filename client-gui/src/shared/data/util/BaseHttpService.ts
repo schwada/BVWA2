@@ -19,6 +19,10 @@ export class HttpService {
         this.defaults = {...this.defaults, ...defaults };
     }
 
+    public getDefaults() {
+        return this.defaults;
+    }
+
 }
 
 export default new HttpService();

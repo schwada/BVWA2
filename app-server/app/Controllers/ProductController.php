@@ -2,11 +2,14 @@
 namespace App\Controllers;
 
 use App\Auth\AuthenticationInterface;
-use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
-use Fig\Http\Message\StatusCodeInterface as Status;
-use Illuminate\Container\Container;
+use App\Exceptions\SystemException;
 use App\Models\Product;
+use Fig\Http\Message\StatusCodeInterface as Status;
+use Slim\Psr7\Request as Request; 
+use Psr\Http\Message\ResponseInterface as Response;
+use Illuminate\Container\Container;
+use Illuminate\Database\QueryException;
+use Ramsey\Uuid\Uuid;
 
 class ProductController {
 
@@ -37,5 +40,38 @@ class ProductController {
 			return $response->withHeader('Content-Type', 'application/json')
 			->withStatus(Status::STATUS_OK);
 		}
+
+
+
+	public function create(Request $request, Response $response) {
+		$data = $request->getParsedBody();
+		$user = $this->auth->getAuthenticated();
+		// TODO: validation
+		// $v = new Validator($data);
+
+		try{
+			$product = new Product();
+			$product->uuid = Uuid::uuid4();
+			$product->stripe_id = Uuid::uuid4();
+			$product->title = $data['title'];
+			$product->slug = Uuid::uuid4();
+			$product->desc = $data['desc'];
+			$product->price = $data['price'];
+			$product->file_path = Uuid::uuid4();
+			$product->user()->associate($user);
+			$product->save();
+		} catch (QueryException $e) {
+			// if ($e->getCode() == 23505) 
+			$response->getBody()->write(json_encode($e));
+            return $response->withHeader('Content-Type', 'application/json')
+            ->withStatus(Status::STATUS_INTERNAL_SERVER_ERROR);
+		}
+
+		// return body?
+		$response->getBody()->write("ok");
+		return $response->withStatus(Status::STATUS_CREATED);
+	}
+
+
 
 }

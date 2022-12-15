@@ -41,9 +41,9 @@ export default function List() {
                             </div>
                         </div>
 
-                        <div>
-                            edit
-                            delete
+                        <div className="flex justify-between items-start">
+                            <div className="pr-2 cursor-pointer">edit</div>
+                            <div className="cursor-pointer">delete</div>
                         </div>
 
                     </div>

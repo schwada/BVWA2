@@ -10,7 +10,9 @@ class Product extends Model {
         'slug',
         'desc',
         'price',
-        'user_id'
+        'user_id',
+        'stripe_id',
+        'file_path',
     ];
     
     protected $hidden = [ 

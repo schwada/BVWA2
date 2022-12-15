@@ -12,5 +12,9 @@ export default new class ProductService {
 		return await this.http.fetch("/products");
 	}
 
+	public async get(id: any): Promise<any | null> {
+		return await this.http.fetch(`/products/${id}`);
+	}
+
 }
 	

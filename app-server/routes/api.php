@@ -19,6 +19,7 @@ $app->group('/users', function (Group $group) {
 
 $app->group('/products', function (Group $group) {
     $group->get('', [App\Controllers\ProductController::class, 'index']);
+    $group->get('/{id}', [App\Controllers\ProductController::class, 'read']);
 });
 
 // ->add(new AuthMiddleware($container->get(AuthenticationInterface::class));

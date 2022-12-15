@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProductService from "../../shared/data/product/ProductService";
+import { useAuth } from "../../shared/store/auth";
 import { add } from "../../shared/store/cart";
 
 export default function Home() {
 
     const { t } = useTranslation();
+    const user = useAuth(state => state.user);
+    const navigate = useNavigate();
     const [products,setProducts] = useState<any[]>([]);
 
     useEffect(() => {
@@ -54,10 +57,17 @@ export default function Home() {
                         </div>
                         <div className="flex justify-between mt-3">
                             <div className="text-gray-600 font-semibold text-lg">{product.price} ,-</div>
-                            <div onClick={() => add(product)} 
-                            className="px-2 py-1 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-600 duration-200">
-                                Add to cart
-                            </div> 
+
+                            {user ? (
+                                <div onClick={() => add(product)} className="px-2 py-1 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-600 duration-200">
+                                    Add to cart
+                                </div> 
+                            ) : (
+                                <div onClick={() => navigate('/auth/login')} className="px-2 py-1 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-600 duration-200">
+                                    Add to cart
+                                </div> 
+                            )}                            
+                            
                         </div>
                     </div>
                 </div>

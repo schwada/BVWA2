@@ -14,9 +14,15 @@ class ProductController {
 
 	public function index(Request $request, Response $response) {
         $response->getBody()->write(json_encode(Product::all()));
-
         return $response->withHeader('Content-Type', 'application/json')
         ->withStatus(Status::STATUS_OK);
 	}
+
+  public function read(Request $request, Response $response, array $args) {
+    $response->getBody()->write(json_encode(Product::where('uuid', $args['id'])->with('user')->firstOrFail()));
+
+    return $response->withHeader('Content-Type', 'application/json')
+    ->withStatus(Status::STATUS_OK);
+  }
 
 }

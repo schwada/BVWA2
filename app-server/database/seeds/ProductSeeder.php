@@ -15,7 +15,8 @@ class ProductSeeder extends AbstractSeed {
                 'file_path' => 'example/pp.pdf',
                 'price' => 250,
                 'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => null
+                'updated_at' => null,
+                'user_id' => 0
             ]
         ];
 

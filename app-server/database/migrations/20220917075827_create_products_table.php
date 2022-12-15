@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Phinx\Migration\AbstractMigration;
@@ -24,6 +25,7 @@ final class CreateProductsTable extends AbstractMigration {
             $table->string('file_path');
             $table->integer('price');
             $table->timestamps();
+            $table->foreignIdFor(User::class);
         });
     }
 

@@ -1,15 +1,36 @@
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
+import ProductService from "../../../shared/data/product/ProductService";
+import { useAuth } from "../../../shared/store/auth";
+import { add } from "../../../shared/store/cart";
+
 export default function Product() {
+
+    const { t } = useTranslation();
+    const user = useAuth(state => state.user);
+    const navigate = useNavigate();
+    const params = useParams();
+    const [product,setProduct] = useState<any>(null);
+
+    useEffect(() => {
+        ProductService.get(params.id).then((data) => {
+            setProduct(data);
+        });
+
+    },[]);
+
+
     return (
         <div className="w-10/12 flex-col py-5 flex-1">
             <div className="flex py-24"> 
                 <div>
-
                     <img alt="ecommerce" className="w-full h-64 object-cover object-center rounded-md" src="https://dummyimage.com/400x400"/>
                 </div>
                 <div className="lg:w-1/2 w-full flex flex-col px-10">
                     <div>
-                        <h2 className="text-sm title-font text-gray-500 tracking-widest">DAVID SCHWAM</h2>
-                        <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
+                        <h2 className="text-sm title-font text-gray-500 tracking-widest">{product?.user.first_name + " " + product?.user.last_name}</h2>
+                        <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title}</h1>
                     </div>
                     <div className="flex">
                         <span className="flex items-center">
@@ -38,14 +59,23 @@ export default function Product() {
 
                     </div>
                     <p className="leading-relaxed mt-5">
-                        Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.
+                        {product?.desc}    
                     </p>
                     <hr className="my-5" />
                     <div className="flex justify-between items-center">
-                        <div className="title-font font-medium text-2xl text-gray-900">58,- CZK</div>
-                        <div className="px-4 py-2 flex items-center rounded-md duration-150 cursor-pointer bg-blue-500 hover:bg-blue-300 text-white">
+                        <div className="title-font font-medium text-2xl text-gray-900">{product?.price},- CZK</div>
+                        {/* <div className="px-4 py-2 flex items-center rounded-md duration-150 cursor-pointer bg-blue-500 hover:bg-blue-300 text-white">
                             Add to cart
-                        </div>
+                        </div> */}
+                        {user ? (
+                                <div onClick={() => add(product)} className="px-2 py-1 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-600 duration-200">
+                                    Add to cart
+                                </div> 
+                            ) : (
+                                <div onClick={() => navigate('/auth/login')} className="px-2 py-1 bg-blue-500 rounded-md text-white cursor-pointer hover:bg-blue-600 duration-200">
+                                    Add to cart
+                                </div> 
+                            )}
                     </div>
                 </div>
 

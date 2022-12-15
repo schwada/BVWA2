@@ -9,13 +9,19 @@ class Product extends Model {
         'title',
         'slug',
         'desc',
-        'price'
+        'price',
+        'user_id'
     ];
     
     protected $hidden = [ 
         'file_path',
         'stripe_id',
+        'user_id',
         'id'
     ];
 
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
